@@ -1,6 +1,6 @@
 # FinanceBotLite
 
-FinanceBotLite는 간단하고 사용하기 쉬운 금융 상품 추천 서비스입니다. 사용자가 입력한 질문을 기반으로 최적의 금융 상품을 추천하여 투자 또는 금융 관련 결정을 돕습니다. OpenAI의 언어 모델과 외부 금융 데이터 API를 활용하여 사용자에게 맞춤형 추천을 제공합니다.
+FinanceBotLite는 간단하고 사용하기 쉬운 금융 상품 추천 서비스입니다. 사용자가 입력한 질문을 기반으로 최적의 금융 상품을 추천하여 투자 또는 금융 관련 결정을 돕습니다. OpenAI의 언어 모델과 금융감독원 API를 활용하여 사용자에게 맞춤형 추천을 제공합니다.
 
 ## 서비스 개요
 
@@ -14,7 +14,7 @@ FinanceBotLite는 간단하고 사용하기 쉬운 금융 상품 추천 서비�
 
 1. **질문 입력**: 사용자가 원하는 금융 상품에 관한 질문을 입력합니다.
 2. **질문 분석**: OpenAI API를 활용하여 질문의 의도를 분석하고, 상품 검색 조건을 설정합니다.
-3. **상품 추천**: Make.com을 통해 외부 금융 데이터 API와 연동하여 조건에 맞는 금융 상품을 추천합니다.
+3. **상품 추천**: 금융감독원 API를 통해 조건에 맞는 금융 상품을 추천합니다.
 4. **결과 출력**: 추천된 금융 상품과 간단한 설명을 Streamlit 인터페이스에 표시합니다.
 
 ## 기술 스택
@@ -22,7 +22,7 @@ FinanceBotLite는 간단하고 사용하기 쉬운 금융 상품 추천 서비�
 - **프로그래밍 언어**: Python
 - **프레임워크**: Streamlit
 - **AI 모델**: OpenAI GPT 모델
-- **API 연동**: Make.com을 통한 외부 금융 데이터 API 호출
+- **API 연동**: 금융감독원 API 호출
 - **배포**: Streamlit 웹 애플리케이션
 
 ## 설치 및 실행 방법
@@ -30,7 +30,7 @@ FinanceBotLite는 간단하고 사용하기 쉬운 금융 상품 추천 서비�
 ### 사전 요구사항
 - Python 3.x
 - OpenAI API 키
-- Make.com API 계정
+- 금융감독원 API 키
 
 
 ## 프로젝트 구조
@@ -42,7 +42,7 @@ FinanceBotLite/
 ├── config.py                  # API 키 및 기타 설정을 관리하는 파일
 ├── .env                       # 환경 변수 파일 (API 키 등을 여기에 저장, .gitignore에 포함)
 ├── utils/
-│   ├── api_handler.py         # Make.com 및 OpenAI API 호출을 위한 모듈
+│   ├── api_handler.py         # 금융감독원 및 OpenAI API 호출을 위한 모듈
 │   ├── text_processing.py     # 질문 분석 및 텍스트 처리 기능 모듈
 │   └── data_formatter.py      # 외부 API에서 가져온 데이터를 포맷팅하는 모듈
 ├── templates/                 # 사용자에게 보여질 템플릿 관련 파일
