@@ -8,4 +8,4 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 MAKE_API_KEY = os.getenv("MAKE_API_KEY")
 
 # API 관련 기본 설정
-BASE_URL = "https://api.make.com/v2/financial-products"
+BASE_URL = "https://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json"
