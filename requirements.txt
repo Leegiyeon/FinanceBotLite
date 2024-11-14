@@ -1,4 +1,4 @@
 streamlit         # Streamlit 웹 애플리케이션 프레임워크
 requests          # HTTP 요청을 위한 requests 라이브러리
-openai>=1.0.0     # OpenAI API를 사용하기 위한 라이브러리
+openai==0.28.0   # OpenAI API를 사용하기 위한 라이브러리
 python-dotenv     # .env 파일에서 환경 변수를 로드하기 위한 라이브러리
