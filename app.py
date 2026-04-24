@@ -7,8 +7,11 @@ st.set_page_config(page_title="FinanceBotLite", page_icon="💸", layout="center
 
 
 def load_css(file_path: str) -> None:
-    with open(file_path, "r", encoding="utf-8") as css_file:
-        st.markdown(f"<style>{css_file.read()}</style>", unsafe_allow_html=True)
+    try:
+        with open(file_path, "r", encoding="utf-8") as css_file:
+            st.markdown(f"<style>{css_file.read()}</style>", unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.warning(f"CSS file not found: {file_path}")
 
 
 def init_state():
