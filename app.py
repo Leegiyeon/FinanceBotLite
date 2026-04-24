@@ -29,9 +29,9 @@ def init_state():
 
 
 def render_avatar():
-    hair_label = ITEM_LABELS[st.session_state["equipped"]["hair"]]
-    top_label = ITEM_LABELS[st.session_state["equipped"]["top"]]
-    bg_label = ITEM_LABELS[st.session_state["equipped"]["bg"]]
+    hair_label = ITEM_LABELS.get(st.session_state["equipped"]["hair"], "알 수 없음")
+    top_label = ITEM_LABELS.get(st.session_state["equipped"]["top"], "알 수 없음")
+    bg_label = ITEM_LABELS.get(st.session_state["equipped"]["bg"], "알 수 없음")
     st.markdown(
         f"""
 ### 🧸 나의 미니미
