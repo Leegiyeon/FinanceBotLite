@@ -114,7 +114,9 @@ with room_tab:
         selected_label = st.selectbox(
             f"{slot_name} 장착", labels, index=labels.index(current_label), key=f"equip_{slot_key}"
         )
-        selected_item = next(item for item in options if item["name"] == selected_label)
+        selected_item = next((item for item in options if item["name"] == selected_label), None)
+        if selected_item:
+            st.session_state["equipped"][slot_key] = selected_item["id"]
         st.session_state["equipped"][slot_key] = selected_item["id"]
 
 with shop_tab:
