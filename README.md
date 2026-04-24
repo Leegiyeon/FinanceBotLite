@@ -1,63 +1,105 @@
 # FinanceBotLite
 
-FinanceBotLite는 간단하고 사용하기 쉬운 금융 상품 추천 서비스입니다. 사용자가 입력한 질문을 기반으로 최적의 금융 상품을 추천하여 투자 또는 금융 관련 결정을 돕습니다. OpenAI의 언어 모델과 외부 금융 데이터 API를 활용하여 사용자에게 맞춤형 추천을 제공합니다.
+FinanceBotLite는 **금융 추천 + 미니미 커스터마이징 + 간단한 인앱 경제**를 결합한 Streamlit MVP 앱입니다.
+기존의 단순 질문형 추천 앱에서 확장되어, 사용자가 반복 방문하며 금융 습관을 만들 수 있는 구조를 목표로 합니다.
 
-## 서비스 개요
+## 현재 구현 상태 (2026-04-24 기준)
 
-- **목표**: 사용자가 간단한 질문만으로도 맞춤형 금융 상품을 추천받을 수 있도록 하는 것입니다.
-- **주요 기능**:
-  - 사용자 질문을 바탕으로 금융 상품 추천
-  - 각 상품에 대한 간단한 설명 제공
-  - Streamlit을 통해 간편한 웹 인터페이스 제공
+### ✅ 구현 완료
+- 탭형 UI: `홈 / 미니룸 / 샵 / 프로필`
+- 맞춤 추천 입력: 목적, 월 예산, 위험 성향, 자유 질문
+- 추천 결과 카드 + 주의사항 표시
+- 추천 조회 보상(+코인)
+- 미니미 커스터마이징(헤어/의상/배경 장착)
+- 샵 구매 로직(코인 사용)
+- PRO 구독 데모 토글
+- 파스텔 톤 귀여운 테마 CSS 적용
+- 외부 API 실패 시 샘플 데이터 fallback
 
-## 기능 설명
+### 🚧 다음 단계
+- 실제 결제 연동(스토어/IAP 또는 웹 결제)
+- 아이템 확장 및 시즌 테마팩
+- 이벤트 로깅/대시보드
+- 온보딩/리텐션 실험(A/B)
 
-1. **질문 입력**: 사용자가 원하는 금융 상품에 관한 질문을 입력합니다.
-2. **질문 분석**: OpenAI API를 활용하여 질문의 의도를 분석하고, 상품 검색 조건을 설정합니다.
-3. **상품 추천**: Make.com을 통해 외부 금융 데이터 API와 연동하여 조건에 맞는 금융 상품을 추천합니다.
-4. **결과 출력**: 추천된 금융 상품과 간단한 설명을 Streamlit 인터페이스에 표시합니다.
+---
 
 ## 기술 스택
+- Python 3.10+
+- Streamlit
+- 표준 라이브러리 기반 API 요청(`urllib`)
 
-- **프로그래밍 언어**: Python
-- **프레임워크**: Streamlit
-- **AI 모델**: OpenAI GPT 모델
-- **API 연동**: Make.com을 통한 외부 금융 데이터 API 호출
-- **배포**: Streamlit 웹 애플리케이션
+---
 
-## 설치 및 실행 방법
+## 설치 및 실행
 
-### 사전 요구사항
-- Python 3.x
-- OpenAI API 키
-- Make.com API 계정
+## 1) 의존성 설치
+```bash
+pip install -r requirements.txt
+```
 
+## 2) 앱 실행
+```bash
+streamlit run app.py
+```
+
+## 3) 테스트 실행
+```bash
+pytest -q
+```
+
+---
+
+## 환경 변수
+현재 코드는 키가 없어도 fallback 데이터로 동작합니다. 실제 연동 시 아래를 설정하세요.
+
+- `OPENAI_API_KEY` (향후 실제 분석 연동용)
+- `FSS_API_KEY` (금융감독원 API)
+- `MAKE_API_KEY` (현재 코드에서 사용하지 않음, 향후 확장용)
+
+예시:
+```bash
+export OPENAI_API_KEY="..."
+export FSS_API_KEY="..."
+export MAKE_API_KEY="..."
+```
+
+---
+
+## 디자인 파일 가이드
+디자인은 CSS 파일 하나로 관리합니다.
+
+- 메인 스타일: `assets/styles.css`
+- 로딩 위치: `app.py`의 `load_css("assets/styles.css")`
+
+즉, 컬러/버튼/탭/배경 스타일을 바꾸려면 `assets/styles.css`만 수정하면 됩니다.
+
+---
 
 ## 프로젝트 구조
-```
+```text
 FinanceBotLite/
-├── app.py                     # Streamlit 메인 애플리케이션 파일
-├── requirements.txt           # 필요한 Python 패키지 목록
-├── README.md                  # 프로젝트 개요와 설치 방법 등을 설명하는 파일
-├── config.py                  # API 키 및 기타 설정을 관리하는 파일
-├── .env                       # 환경 변수 파일 (API 키 등을 여기에 저장, .gitignore에 포함)
-├── utils/
-│   ├── api_handler.py         # Make.com 및 OpenAI API 호출을 위한 모듈
-│   ├── text_processing.py     # 질문 분석 및 텍스트 처리 기능 모듈
-│   └── data_formatter.py      # 외부 API에서 가져온 데이터를 포맷팅하는 모듈
-├── templates/                 # 사용자에게 보여질 템플릿 관련 파일
-│   └── response_template.py   # 추천 결과의 UI 구성을 위한 템플릿
-├── assets/                    # 이미지, CSS, JavaScript 등 정적 파일
-├── tests/                     # 테스트 코드 파일
-│   ├── test_api_handler.py    # API 호출 모듈의 테스트
-│   ├── test_text_processing.py # 텍스트 처리 모듈의 테스트
-│   └── test_data_formatter.py  # 데이터 포맷팅 모듈의 테스트
-├── docs/                      # 프로젝트 문서
-│   ├── SERVICE_PLAN.md        # 서비스 기획서
-│   ├── REQUIREMENTS.md        # 요구사항 명세서
-│   ├── FUNCTIONAL_SPEC.md     # 기능 명세서
-│   ├── USE_CASE.md            # USE CASE 문서
-│   └── UI_DESIGN.md           # UI 설계서
-└── LICENSE                    # 라이센스 파일
-
+├── app.py
+├── config.py
+├── requirements.txt
+├── pytest.ini
+├── README.md
+├── assets/
+│   └── styles.css
+├── docs/
+│   ├── REBOOT_EXECUTION_PLAN.md
+│   └── WORK_TODO.md
+├── tests/
+│   ├── test_api_handler.py
+│   └── test_test_processing.py
+└── utils/
+    ├── __init__.py
+    ├── api_handler.py
+    └── text_processing.py
 ```
+
+---
+
+## 면책 고지
+본 앱의 추천 결과는 참고용 정보이며, 투자 권유가 아닙니다.
+상품 가입 전 약관/설명서/수수료/중도해지 조건을 반드시 확인하세요.
