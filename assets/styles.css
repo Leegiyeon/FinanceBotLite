@@ -1,0 +1,61 @@
+:root {
+  --fb-pink: #ff7eb6;
+  --fb-mint: #7ce7d1;
+  --fb-lavender: #b8a7ff;
+  --fb-bg: #fff8fc;
+  --fb-card: #ffffff;
+  --fb-text: #263238;
+}
+
+.stApp {
+  background: linear-gradient(180deg, var(--fb-bg) 0%, #f7fbff 100%);
+  color: var(--fb-text);
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.2px;
+}
+
+[data-testid="stTabs"] [role="tablist"] {
+  gap: 8px;
+}
+
+[data-testid="stTabs"] [role="tab"] {
+  border-radius: 999px;
+  border: 1px solid #ffd8ec;
+  background: #fff;
+  padding: 6px 16px;
+}
+
+[data-testid="stTabs"] [aria-selected="true"] {
+  background: linear-gradient(90deg, #ffd9ea, #e6dcff);
+  color: #4a2b57;
+}
+
+.stButton > button {
+  border-radius: 12px;
+  border: 0;
+  background: linear-gradient(90deg, var(--fb-pink), var(--fb-lavender));
+  color: #fff;
+  font-weight: 600;
+}
+
+.stButton > button:hover {
+  filter: brightness(0.95);
+}
+
+[data-testid="stMetric"] {
+  background: var(--fb-card);
+  border: 1px solid #f1e8ff;
+  border-radius: 14px;
+  padding: 10px;
+}
+
+.block-container {
+  padding-top: 1.2rem;
+}
+
+hr {
+  border: 0;
+  border-top: 1px dashed #e3d5ff;
+}

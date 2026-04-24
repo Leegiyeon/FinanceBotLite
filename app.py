@@ -6,6 +6,14 @@ from utils.text_processing import analyze_question
 st.set_page_config(page_title="FinanceBotLite", page_icon="💸", layout="centered")
 
 
+def load_css(file_path: str) -> None:
+    try:
+        with open(file_path, "r", encoding="utf-8") as css_file:
+            st.markdown(f"<style>{css_file.read()}</style>", unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.warning(f"CSS file not found: {file_path}")
+
+
 def init_state():
     defaults = {
         "coins": 120,
@@ -24,9 +32,9 @@ def init_state():
 
 
 def render_avatar():
-    hair_label = ITEM_LABELS[st.session_state["equipped"]["hair"]]
-    top_label = ITEM_LABELS[st.session_state["equipped"]["top"]]
-    bg_label = ITEM_LABELS[st.session_state["equipped"]["bg"]]
+    hair_label = ITEM_LABELS.get(st.session_state["equipped"]["hair"], "알 수 없음")
+    top_label = ITEM_LABELS.get(st.session_state["equipped"]["top"], "알 수 없음")
+    bg_label = ITEM_LABELS.get(st.session_state["equipped"]["bg"], "알 수 없음")
     st.markdown(
         f"""
 ### 🧸 나의 미니미
@@ -49,6 +57,7 @@ ITEM_LABELS = {item["id"]: item["name"] for item in ITEMS}
 
 
 init_state()
+load_css("assets/styles.css")
 st.title("FinanceBotLite")
 st.caption("금융 추천도 받고, 내 미니미도 꾸미는 금융 라이프 앱")
 
@@ -105,7 +114,9 @@ with room_tab:
         selected_label = st.selectbox(
             f"{slot_name} 장착", labels, index=labels.index(current_label), key=f"equip_{slot_key}"
         )
-        selected_item = next(item for item in options if item["name"] == selected_label)
+        selected_item = next((item for item in options if item["name"] == selected_label), None)
+        if selected_item:
+            st.session_state["equipped"][slot_key] = selected_item["id"]
         st.session_state["equipped"][slot_key] = selected_item["id"]
 
 with shop_tab:
