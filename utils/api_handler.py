@@ -22,7 +22,8 @@ def fetch_financial_products():
             payload = json.loads(response.read().decode("utf-8"))
         products = payload.get("result", {}).get("baseList", [])
         return products if isinstance(products, list) else _sample_products()
-    except Exception:
+    except (OSError, ValueError) as e:
+        # Log the error in production for monitoring
         return _sample_products()
 
 
